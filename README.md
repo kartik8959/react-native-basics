@@ -7,5 +7,8 @@
 
 ![image](https://github.com/kartik8959/react-native-basics/assets/77157222/40347b0e-850a-498e-a5da-3cc8a02e93cc)
 
+![image](https://github.com/kartik8959/react-native-basics/assets/77157222/d6286f40-d93b-47b6-954b-829c80016d0e)
+
+
 
 
