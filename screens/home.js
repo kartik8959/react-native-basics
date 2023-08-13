@@ -51,7 +51,8 @@ const COLOR_PALETTES = [
 
 const URL = "https://color-palette-api.kadikraman.vercel.app/palettes";
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+  const newPallette = route.params ? route.params.newPalette : null;
   const [palettes, setPalettes] = useState([]);
   const handleFetchPalettes = useCallback(async () => {
     let response = await fetch(URL);
@@ -64,20 +65,31 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     handleFetchPalettes();
   }, []);
+
+  useEffect(() => {
+    if (newPallette) {
+      setPalettes((current) => [newPallette, ...current]);
+    }
+  }, [newPallette]);
   return (
-    <FlatList
-      style={styles.list}
-      data={palettes}
-      keyExtractor={(item) => item.paletteName}
-      renderItem={({ item }) => (
-        <PalettePreview
-          handlePress={() => {
-            navigation.navigate("ColorPalate", item);
-          }}
-          colorPalette={item}
-        />
-      )}
-    />
+    <>
+      <TouchableOpacity onPress={() => navigation.navigate("AddNewPalette")}>
+        <Text>Add a Color Scheme</Text>
+      </TouchableOpacity>
+      <FlatList
+        style={styles.list}
+        data={palettes}
+        keyExtractor={(item) => item.paletteName}
+        renderItem={({ item }) => (
+          <PalettePreview
+            handlePress={() => {
+              navigation.navigate("ColorPalette", item);
+            }}
+            colorPalette={item}
+          />
+        )}
+      />
+    </>
   );
 };
 
